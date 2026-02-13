@@ -3,6 +3,14 @@
 \name{test}
 \alias{test}
 \title{Test}
+\usage{
+test(a, b)
+}
+\arguments{
+\item{a}{data.frame}
+
+\item{b}{data.frame}
+}
 \value{
 A list of objects.
 }
@@ -11,5 +19,14 @@ Test function for data distance function... more to come :)
 }
 \examples{
 # example code
-test(data1,data2)
+dataA <- data.frame(a = c(1,5,3,2),
+                    b = c(4,1,6,8),
+                    c = c(3,6,1,7),
+                    d = c("apple","orange","banana","mango"))
+dataB <- data.frame(a = c(1,9,2,6),
+                    b = c(4,2,6,9),
+                    c = c(3,6,1,7),
+                    d = c(3,7,9,2),
+                    e = c("pear","grape","lemon","lime"))
+test(dataA, dataB)
 }

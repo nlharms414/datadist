@@ -1,7 +1,7 @@
 # test function for data distance function
 
-#' @name test
-#' @title Test
+#' @name datadist
+#' @title Difference Measure for Data Sets
 #'
 #' @description
 #' Test function for data distance function... more to come :)
@@ -22,10 +22,14 @@
 #'                     c = c(3,6,1,7),
 #'                     d = c(3,7,9,2),
 #'                     e = c("pear","grape","lemon","lime"))
-#' test(dataA, dataB)
-test <- function(a,b){
-  a <- as.data.frame(a[])  # convert to dataframes if not
+#' datadist(dataA, dataB)
+datadist <- function(a,b){
+  a <- as.data.frame(a[])  # convert to data.frames if not
   b <- as.data.frame(b[])
+  if(all((class(a)=="data.frame")==F) | all((class(b)=="data.frame")==F)){
+    stop("Could not convert to data.frame.")
+  }
+
   numA <- a[sapply(a,is.numeric)]
   numB <- b[sapply(b,is.numeric)]
   charA <- a[sapply(a,is.numeric)==F]

@@ -27,7 +27,7 @@ wassersteinXY <- function(X, Y, p = 1, knots=max(c(length(X), length(Y)))) {
     mean(abs(FX(t) - FY(t))^p)^(1/p)
   }
 
-  limits <- range(c(X, Y), na.rm=TRUE)*c(.9,1.1)
+  limits <- range(c(X, Y), na.rm=TRUE)
   ts <- seq(from=limits[1], to=limits[2], length.out=knots)
   #  browser()
   #  philentropy::minkowski(FX(ts), FY(ts), n=1)/knots

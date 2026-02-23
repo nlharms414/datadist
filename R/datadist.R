@@ -48,7 +48,9 @@ datadist <- function(a,b){
 
   return(list(dist = matrix, "char A" = charA, "char B" = charB,
               score = sum(dplyr::near(apply(matrix,1,FUN = min),0))))
-  # could change tolerance
 }
+
+# identify permutation in matrix with smallest total difference
+# identify mappings of variables
 
 

@@ -9,7 +9,6 @@
 #' @param a data.frame
 #' @param b data.frame
 #' @returns A list of objects.
-#' @importFrom transport wasserstein1d
 #' @export
 #' @examples
 #' # example code
@@ -45,7 +44,7 @@ datadist <- function(a,b){
 
   for (i in 1:ncol(numA)) {
     for (j in 1:ncol(numB)) {
-      matrix[i,j] <- transport::wasserstein1d(numA[,i],numB[,j])
+      matrix[i,j] <- wassersteinXY(numA[,i],numB[,j])
     }
   }
 

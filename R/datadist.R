@@ -29,16 +29,11 @@ datadist <- function(a,b){
     stop("Could not convert to data.frame.")
   }
 
-  # some way to make things more concise here...
+  # some way to make things more concise here...?
   numA <- a[sapply(a,is.numeric)]
   numB <- b[sapply(b,is.numeric)]
   charA <- a[sapply(a,is.numeric)==F]
   charB <- b[sapply(b,is.numeric)==F]
-
-  namesA <- colnames(numA)
-  namesB <- colnames(numB)
-
-  # add in stop if criteria aren't met
 
   matrix <- matrix(NA,nrow = ncol(numA),ncol = ncol(numB))
 
@@ -48,8 +43,8 @@ datadist <- function(a,b){
     }
   }
 
-  colnames(matrix) <- namesB
-  rownames(matrix) <- namesA
+  colnames(matrix) <- colnames(numB)
+  rownames(matrix) <- colnames(numA)
 
   return(list(dist = matrix, "char A" = charA, "char B" = charB,
               score = sum(dplyr::near(apply(matrix,1,FUN = min),0))))

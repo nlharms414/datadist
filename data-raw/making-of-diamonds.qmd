@@ -1,0 +1,38 @@
+---
+title: "making-of-diamonds"
+format: html
+---
+
+A search for `diamonds` in the kaggle platform returns 320 datasets (Feb 24 2026).
+
+```{r}
+library(reticulate)
+```
+
+```{python}
+import kagglehub
+
+# Download latest version
+path1 = kagglehub.dataset_download("shivam2503/diamonds")
+path2 = kagglehub.dataset_download("lovishbansal123/diamond-dataset")
+path3 = kagglehub.dataset_download("vittoriogiatti/diamondprices")
+path4 = kagglehub.dataset_download("nancyalaswad90/diamonds-prices")
+path5 = kagglehub.dataset_download("amirhosseinmirzaie/diamonds-price-dataset")
+```
+
+```{r}
+library(rlang)
+
+
+kgl_diamonds <- list()
+kgl_diamonds[[1]] <- read.csv(file.path(py$path1, "diamonds.csv"))
+kgl_diamonds[[2]] <- read.csv(file.path(py$path2, "diamonds.csv"))
+kgl_diamonds[[3]] <- read.csv(file.path(py$path3, "DiamondsPrices.csv"))
+kgl_diamonds[[4]] <- read.csv(file.path(py$path4, "Diamonds Prices2022.csv"))
+kgl_diamonds[[5]] <- read.csv(file.path(py$path5, "diamonds.csv"))
+
+names(kgl_diamonds) <- 
+  c("shivam2503/diamonds", "lovishbansal123/diamond-dataset", "vittoriogiatti/diamondprices", "nancyalaswad90/diamonds-prices", "amirhosseinmirzaie/diamonds-price-dataset")
+usethis::use_data(kgl_diamonds, overwrite = TRUE)
+```
+

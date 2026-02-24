@@ -17,3 +17,7 @@ LazyData: true
 RoxygenNote: 7.3.3
 URL: https://github.com/nlharms414/datadist
 BugReports: https://github.com/nlharms414/datadist/issues
+Imports: 
+    dplyr
+Depends: 
+    R (>= 3.5)

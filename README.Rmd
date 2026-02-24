@@ -38,4 +38,51 @@ library(datadist)
 ## basic example code
 ```
 
+### Diamonds Data from kaggle
 
+The object `kgl_diamonds` contains five data of the 320 data sets available on kaggle when searching the platform for `diamonds` (Feb 2026).
+
+At a first glance, the dimensions of these datasets are similar to each other, but not identical.
+
+```{r}
+data("kgl_diamonds")
+kgl_diamonds |> purrr::map(.f = dim)
+```
+
+
+The dimensions are also very similar to the `diamonds` dataset in `ggplot2`:
+
+```{r}
+library(ggplot2)
+dim(diamonds)
+```
+
+Are some of these datasets identical to the `diamonds` data?
+
+```{r}
+kgl_diamonds |> purrr::map(.f = function(x) identical(x,diamonds))
+```
+When we look a bit closer, though, we find that "vittoriogiatti" has strong similarities to the `diamonds` data in ggplot2, as all of the names of the variables coincide and the numeric values are the same, even in the same order.
+
+```{r warning=FALSE}
+summary(kgl_diamonds[[3]] - diamonds)
+```
+This is the same picture we get when we calculate the marginal distances between all pairs of variables between the two datasets:
+
+```{r}
+wasserstein <- datadist(kgl_diamonds[[3]], diamonds)$dist
+round(wasserstein, 2)
+```
+Datasets with an additional variable have the row numbers saved in a first column: 
+
+```{r}
+wasserstein_1 <- datadist(kgl_diamonds[[1]], diamonds)$dist
+round(wasserstein_1, 2)
+```
+
+They are, however, identical to each other:
+
+```{r}
+wasserstein_12 <- datadist(kgl_diamonds[[1]], kgl_diamonds[[2]])$dist
+round(wasserstein_12, 2)
+```

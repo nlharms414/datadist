@@ -7,6 +7,7 @@
 #' @param Y a real-valued random variable
 #' @param p non-negative value identifying the norm. $p$ = 1 is Manhattan norm, $p=2$ is Euclidean distance.
 #' @param knots non negative integer value specifying the number of evaluations within the ranges of X and Y.
+#' @importFrom stats ecdf
 #' @returns single positive value. Larger values indicate less similarity.
 #' @export
 #' @examples

@@ -22,6 +22,7 @@
 #'                     d = c(3,7,9,2),
 #'                     e = c("pear","grape","lemon","lime"))
 #' datadist(dataA, dataB)
+
 datadist <- function(a,b){
   a <- as.data.frame(a[])  # convert to data.frames if not
   b <- as.data.frame(b[])
@@ -46,8 +47,7 @@ datadist <- function(a,b){
   colnames(matrix) <- colnames(numB)
   rownames(matrix) <- colnames(numA)
 
-  return(list(dist = matrix, "char A" = charA, "char B" = charB,
-              score = sum(dplyr::near(apply(matrix,1,FUN = min),0))))
+  return(list(dist = matrix, "char A" = charA, "char B" = charB))
 }
 
 

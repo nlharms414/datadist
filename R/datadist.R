@@ -50,6 +50,7 @@ datadist <- function(a,b){
               score = sum(dplyr::near(apply(matrix,1,FUN = min),0))))
 }
 
+
 # identify permutation in matrix with smallest total difference
 # identify mappings of variables
 

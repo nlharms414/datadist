@@ -2,3 +2,4 @@
 
 export(datadist)
 export(wassersteinXY)
+importFrom(stats,ecdf)

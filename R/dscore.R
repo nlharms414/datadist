@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' # example code
-#'
+#' @export
 #' @returns A list containing a dataframe with variable mappings & distances and
 #' an overall dataframe distance score.
 

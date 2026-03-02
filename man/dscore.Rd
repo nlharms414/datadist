@@ -18,5 +18,4 @@ Computes a distance score for two matrices after use of `datadist()`
 }
 \examples{
 # example code
-
 }

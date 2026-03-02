@@ -61,6 +61,15 @@ The dimensions are also very similar to the `diamonds` dataset in
 
 ``` r
 library(ggplot2)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 dim(diamonds)
 #> [1] 53940    10
 ```
@@ -124,6 +133,31 @@ round(wasserstein, 2)
 #> z      0.09  0.74  0.57  0.21 0.07 0.04 0.00
 ```
 
+We see 0s on the diagonal, indicating that these pairs of variables have
+the same marginal distribution, i.e. these variables have identical
+data. We also see that the difference between `x` and `y` is very small,
+indicating a high positive correlation between these two measurements,
+i.e. most diamonds are highly symmetric.
+
+data error: y = 58.9 no diamonds priced between \$1460 and \$1540
+
+``` r
+diamonds |> filter(between(price, 1000, 3000)) |> ggplot(aes(x = price)) + geom_histogram(binwidth=10)
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" alt="" width="100%" />
+
+This matrix can be summarized in a score calculated as the minimum of
+the sum of all possible variable to variable mappings:
+
+``` r
+dscore(wasserstein)$score
+#> [1] 0
+```
+
+A value of 0 in this `dscore` indicates that all variables in the
+datasets have identical marginal distributions.
+
 Datasets with an additional variable have the row numbers saved in a
 first column:
 
@@ -156,3 +190,33 @@ round(wasserstein_12, 2)
 #> y     0.50  0.08  0.71  0.54  0.21 0.00 0.00 0.04
 #> z     0.50  0.09  0.74  0.57  0.21 0.07 0.04 0.00
 ```
+
+More interesting:
+
+``` r
+wasserstein_4 <- datadist(kgl_diamonds[[4]], diamonds)
+wasserstein_5 <- datadist(kgl_diamonds[[5]], diamonds)
+```
+
+Are these maybe submissions that used the script to update the data?
+
+``` r
+kgl_diamonds[[4]] |> filter(between(price, 1400, 1600)) |> ggplot(aes(x = price)) + geom_histogram(binwidth=10)
+```
+
+<img src="man/figures/README-unnamed-chunk-12-1.png" alt="" width="100%" />
+
+``` r
+
+kgl_diamonds[[5]] |> filter(between(price, 1400, 1600)) |> ggplot(aes(x = price)) + geom_histogram(binwidth=10)
+```
+
+<img src="man/figures/README-unnamed-chunk-12-2.png" alt="" width="100%" />
+
+Alas, no.
+
+``` r
+kgl_diamonds[[5]] |> ggplot(aes(x = x, y = y)) + geom_point()
+```
+
+<img src="man/figures/README-unnamed-chunk-13-1.png" alt="" width="100%" />

@@ -29,7 +29,12 @@ dscore <- function(dmat){
     c <- append(c,c(red[1,2]))
     indices <- rbind(indices,c(red[1,],dmat[red[1,1],red[1,2]]))
 
-    if (nrow(dmat[-r, ,drop=FALSE])==0 || ncol(dmat[,-c,drop=FALSE])==0) break
+    if (nrow(dmat[-r, ,drop=FALSE])==0 || ncol(dmat[,-c,drop=FALSE])==0){
+      if (nrow(dmat)!=ncol(dmat)) {
+        warning("Rows and columns not equal. Best matches found.")
+        break
+      } else {break}
+    }
   }
 
   indices$r <- rownames(dmat)[indices$r]

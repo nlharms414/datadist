@@ -43,3 +43,5 @@ dscore <- function(dmat){
   return(list(mappings = indices, score = sum(indices$dist)))
 }
 
+# specify which row(s)/col(s) didn't match any of the others
+# add examples

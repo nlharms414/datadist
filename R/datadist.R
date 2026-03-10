@@ -54,4 +54,11 @@ datadist <- function(a,b){
 # identify permutation in matrix with smallest total difference
 # identify mappings of variables
 
+# for char variables order each variable by factor density
+# do them by natural factor order as well
+# if already a factor just leave it
+# create second variable that's sorted by size
+# package stringdist
+# package fuzzy in r (jk it does not exist)
+
 

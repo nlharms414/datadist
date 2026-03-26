@@ -31,6 +31,9 @@ dscore <- function(dmat){
 
     if (nrow(dmat[-r, ,drop=FALSE])==0 || ncol(dmat[,-c,drop=FALSE])==0){
       if (nrow(dmat)!=ncol(dmat)) {
+        if (nrow(dmat[-r, ,drop=FALSE])>ncol(dmat[,-c,drop=FALSE])) {
+          extra <- rownames(dmat)[-r]
+        } else{extra <- colnames(dmat)[-c]}
         warning("Rows and columns not equal. Best matches found.")
         break
       } else {break}
@@ -40,7 +43,7 @@ dscore <- function(dmat){
   indices$r <- rownames(dmat)[indices$r]
   indices$c <- colnames(dmat)[indices$c]
 
-  return(list(mappings = indices, score = sum(indices$dist)))
+  return(list(mappings = indices, score = sum(indices$dist), extra = extra))
 }
 
 # specify which row(s)/col(s) didn't match any of the others

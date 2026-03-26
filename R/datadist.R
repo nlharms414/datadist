@@ -50,9 +50,10 @@ datadist <- function(a,b){
   return(list(dist = matrix, "char A" = charA, "char B" = charB))
 }
 
-
+## DONE
 # identify permutation in matrix with smallest total difference
 # identify mappings of variables
+
 
 # for char variables order each variable by factor density
 # do them by natural factor order as well

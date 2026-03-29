@@ -30,29 +30,26 @@ datadist <- function(a,b){
     stop("Could not convert to data.frame.")
   }
 
-  # some way to make things more concise here...?
   numA <- a[sapply(a,is.numeric)]
   numB <- b[sapply(b,is.numeric)]
   charA <- a[sapply(a,is.numeric)==F]
   charB <- b[sapply(b,is.numeric)==F]
 
-  matrix <- matrix(NA,nrow = ncol(numA),ncol = ncol(numB))
+  mat <- mat(NA,nrow = ncol(numA),ncol = ncol(numB))
 
   for (i in 1:ncol(numA)) {
     for (j in 1:ncol(numB)) {
-      matrix[i,j] <- wassersteinXY(numA[,i],numB[,j])
+      mat[i,j] <- wassersteinXY(numA[,i],numB[,j])
     }
   }
 
-  colnames(matrix) <- colnames(numB)
-  rownames(matrix) <- colnames(numA)
+  colnames(mat) <- colnames(numB)
+  rownames(mat) <- colnames(numA)
 
   return(list(dist = matrix, "char A" = charA, "char B" = charB))
 }
 
-## DONE
-# identify permutation in matrix with smallest total difference
-# identify mappings of variables
+
 
 
 # for char variables order each variable by factor density

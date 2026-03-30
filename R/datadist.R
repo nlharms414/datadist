@@ -4,11 +4,15 @@
 #' @title Difference Measure for Data Sets
 #'
 #' @description
-#' Test function for data distance function... more to come :)
+#' Produces a numerical variable distance matrix and a categorical variable
+#' distance matrix.
 #'
-#' @param a data.frame
-#' @param b data.frame
-#' @returns A list of objects.
+#' @param dfa data.frame
+#' @param dfb data.frame
+#' @returns `numdist` is returned using the `wassersteinXY()` function to find a
+#' distance matrix for every numerical variable combination between data frame A
+#' and data frame B. `chardist` is found likewise.
+#'
 #' @export
 #' @examples
 #' # example code
@@ -23,9 +27,9 @@
 #'                     e = c("pear","grape","lemon","lime"))
 #' datadist(dataA, dataB)
 
-datadist <- function(a,b){
-  a <- as.data.frame(a[])  # convert to data.frames if not
-  b <- as.data.frame(b[])
+datadist <- function(dfa,dfb){
+  a <- as.data.frame(dfa[])  # convert to data.frames if not
+  b <- as.data.frame(dfb[])
   if(all((class(a)=="data.frame")==F) | all((class(b)=="data.frame")==F)){
     stop("Could not convert to data.frame.")
   }
@@ -35,18 +39,27 @@ datadist <- function(a,b){
   charA <- a[sapply(a,is.numeric)==F]
   charB <- b[sapply(b,is.numeric)==F]
 
-  mat <- mat(NA,nrow = ncol(numA),ncol = ncol(numB))
+  nummat <- matrix(NA,nrow = ncol(numA),ncol = ncol(numB))
+  charmat <- matrix(NA,nrow = ncol(charA),ncol = ncol(charB))
 
   for (i in 1:ncol(numA)) {
     for (j in 1:ncol(numB)) {
-      mat[i,j] <- wassersteinXY(numA[,i],numB[,j])
+      nummat[i,j] <- wassersteinXY(numA[,i],numB[,j])
     }
   }
 
-  colnames(mat) <- colnames(numB)
-  rownames(mat) <- colnames(numA)
+  for (i in 1:ncol(charA)) {
+    for (j in 1:ncol(charB)) {
+      charmat[i,j] <- wassersteinXY(table(charA[,i]),table(charB[,j]))
+    }
+  }
 
-  return(list(dist = matrix, "char A" = charA, "char B" = charB))
+  colnames(nummat) <- colnames(numB)
+  rownames(nummat) <- colnames(numA)
+  colnames(charmat) <- colnames(charB)
+  rownames(charmat) <- colnames(charA)
+
+  return(list(numdist = nummat, chardist = charmat))
 }
 
 

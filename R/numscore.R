@@ -1,10 +1,10 @@
-# Distance score function
-
 #' @name numscore
-#' @title Generates distance score
+#' @title Generates distance score for numerical columns.
 #'
 #' @description
-#' Computes a distance matrix and distance (similarity) score for two data frames.
+#' Computes a distance matrix and distance (similarity) score for the numerical
+#' variables of two data frames.
+#'
 #'
 #' @param dfa Data frame A to compare to `dfb`
 #' @param dfb Data frame B to compare to `dfa`
@@ -16,27 +16,7 @@
 #' @returns A list containing a dataframe with variable mappings & distances and
 #' an overall dataframe distance score.
 
-numscore <- function(dfa,dfb){
-  a <- as.data.frame(dfa[])  # convert to data.frames if not
-  b <- as.data.frame(dfb[])
-  if(all((class(a)=="data.frame")==F) | all((class(b)=="data.frame")==F)){
-    stop("Could not convert to data.frame.")
-  }
-
-  numA <- a[sapply(a,is.numeric)]
-  numB <- b[sapply(b,is.numeric)]
-
-  dmat <- matrix(NA,nrow = ncol(numA),ncol = ncol(numB))
-
-  for (i in 1:ncol(numA)) {
-    for (j in 1:ncol(numB)) {
-     dmat[i,j] <- wassersteinXY(numA[,i],numB[,j])
-    }
-  }
-
-  colnames(dmat) <- colnames(numB)
-  rownames(dmat) <- colnames(numA)
-
+numscore <- function(dmat){
   mins <- which(dmat==min(dmat), arr.ind = TRUE)
   indices <- data.frame(r = mins[1,1], c = mins[1,2],
                         dist = dmat[mins[1,1],mins[1,2]])

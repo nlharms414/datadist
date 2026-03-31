@@ -17,6 +17,8 @@
 #' an overall dataframe distance score.
 
 numscore <- function(dmat){
+  returns <- list(distmat=NA, mappings=NA, score=NA, extracols=NA)
+
   mins <- which(dmat==min(dmat), arr.ind = TRUE)
   indices <- data.frame(r = mins[1,1], c = mins[1,2],
                         dist = dmat[mins[1,1],mins[1,2]])
@@ -36,6 +38,7 @@ numscore <- function(dmat){
         if (nrow(dmat[-r, ,drop=FALSE])>ncol(dmat[,-c,drop=FALSE])) {
           extra <- rownames(dmat)[-r]
         } else{extra <- colnames(dmat)[-c]}
+        returns[[4]] <- extra
         warning("Rows and columns not equal. Best matches found.")
         break
       } else {break}
@@ -44,9 +47,9 @@ numscore <- function(dmat){
 
   indices$r <- rownames(dmat)[indices$r]
   indices$c <- colnames(dmat)[indices$c]
+  returns[1:3] <- list(dmat,indices,sum(indices$dist))
 
-  # don't return extra column if doesn't exist
-  return(list(distmat=dmat, mappings = indices, score = sum(indices$dist), extracols = extra))
+  returns
 }
 
 # add examples

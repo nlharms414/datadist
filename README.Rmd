@@ -108,7 +108,7 @@ wasserstein_12 <- datadist(kgl_diamonds[[1]], kgl_diamonds[[2]])$dist
 round(wasserstein_12, 2)
 ```
 
-More interesting:
+More interestingly, the number of observations in `kgl_diamonds` data sets 4 and 5 are different from the original. 
 
 ```{r}
 wasserstein_4 <- datadist(kgl_diamonds[[4]], diamonds)
@@ -129,3 +129,41 @@ Alas, no.
 ```{r}
 kgl_diamonds[[5]] |> ggplot(aes(x = x, y = y)) + geom_point()
 ```
+
+# Comparison of character/categorical variables
+
+Different situations: comparison of numeric to categorical - not sure how, later
+
+categorical  to categorical (lowish number of categories):
+
+```{r}
+full_x <- kgl_diamonds[[5]]$cut |> as.factor() |> ecdf()
+
+table_x <- kgl_diamonds[[5]]$cut |> table() |> ecdf()
+# gives different ecdfs because of different orderings
+
+
+wassersteinXY(kgl_diamonds[[5]], diamonds)
+
+
+# option 0: count all non-matching strings (for some string distance) (needs the same number of observations)
+char_dist <- sum(kgl_diamonds[[1]]$cut != sample(diamonds$cut))/length(kgl_diamonds[[1]]$cut)
+
+# option 1: use dummy encoding (0/1 data.frames) then use datadist on those data frames
+dfA <- data.frame(model.matrix(~cut-1, data = kgl_diamonds[[5]]))
+dfB <- data.frame(model.matrix(~cut-1, data = diamonds))
+
+dfA$name <- "A"
+dfB$name <- "A"
+
+datadist(dfA, dfB)
+
+
+```
+
+Idea for categorical distances:
+
+1. check if X is equal to Y (only works for the same number of observations)
+2. use dummy encoding for X and Y and run numscore
+
+

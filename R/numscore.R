@@ -45,6 +45,7 @@ numscore <- function(dmat){
   indices$r <- rownames(dmat)[indices$r]
   indices$c <- colnames(dmat)[indices$c]
 
+  # don't return extra column if doesn't exist
   return(list(distmat=dmat, mappings = indices, score = sum(indices$dist), extracols = extra))
 }
 

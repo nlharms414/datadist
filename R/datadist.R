@@ -48,9 +48,11 @@ datadist <- function(dfa,dfb){
     }
   }
 
-  for (i in 1:ncol(charA)) {
-    for (j in 1:ncol(charB)) {
-      charmat[i,j] <- wassersteinXY(table(charA[,i]),table(charB[,j]))
+  if (ncol(charA)>0 || ncol(charB)>0) {
+    for (i in 1:ncol(charA)) {
+      for (j in 1:ncol(charB)) {
+        charmat[i,j] <- wassersteinXY(table(charA[,i]),table(charB[,j]))
+      }
     }
   }
 
@@ -70,6 +72,14 @@ datadist <- function(dfa,dfb){
 # if already a factor just leave it
 # create second variable that's sorted by size
 # package stringdist
-# package fuzzy in r (jk it does not exist)
+
+# 1. convert to factor (if not already) and then convert to numeric. use wassersteinXY.
+# 2. cast to character, then factor, then numeric, and then get distance.
+
+# option 0: check if x is equal to y (only works with same number of observations)
+# option 0.b:
+# do every pairwise comparison, score, then get overall chardist matrix
+# df <- data.frame(model.matrix(~var-1, data=))
+# df$name <- "A"
 
 

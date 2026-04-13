@@ -28,7 +28,7 @@ numscore <- function(dmat){
   repeat {
     mins <- apply(dmat[-r,-c,drop=FALSE],1,min) # find mins
     red <- which(dmat==min(apply(dmat[-r,-c,drop=FALSE],1,min)), arr.ind = TRUE) # remove first row/col of mins (if more than one are the same)
-    red <- subset(red,!(red[,2]%in%c))
+    red <- subset(red,!(red[,2]%in%c) & !(red[,1]%in%r))
     r <- append(r,c(red[1,1]))
     c <- append(c,c(red[1,2]))
     indices <- rbind(indices,c(red[1,],dmat[red[1,1],red[1,2]]))

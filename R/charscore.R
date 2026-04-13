@@ -13,40 +13,19 @@
 #'
 #' @export
 #'
-#' @returns A list containing a dataframe with variable mappings & distances and
-#' an overall dataframe distance score.
+#' @returns A list containing a matrix containing distance scores between
+#' categorical variables from two datasets.
 
-charscore <- function(dmat){
-  mins <- which(dmat==min(dmat), arr.ind = TRUE)
-  indices <- data.frame(r = mins[1,1], c = mins[1,2],
-                        dist = dmat[mins[1,1],mins[1,2]])
-  r <- c(mins[1,1])
-  c <- c(mins[1,2])
-
-  repeat {
-    mins <- apply(dmat[-r,-c,drop=FALSE],1,min) # find mins
-    red <- which(dmat==min(apply(dmat[-r,-c,drop=FALSE],1,min)), arr.ind = TRUE) # remove first row/col of mins (if more than one are the same)
-    red <- subset(red,!(red[,2]%in%c))
-    r <- append(r,c(red[1,1]))
-    c <- append(c,c(red[1,2]))
-    indices <- rbind(indices,c(red[1,],dmat[red[1,1],red[1,2]]))
-
-    if (nrow(dmat[-r, ,drop=FALSE])==0 || ncol(dmat[,-c,drop=FALSE])==0){
-      if (nrow(dmat)!=ncol(dmat)) {
-        if (nrow(dmat[-r, ,drop=FALSE])>ncol(dmat[,-c,drop=FALSE])) {
-          extra <- rownames(dmat)[-r]
-        } else{extra <- colnames(dmat)[-c]}
-        warning("Rows and columns not equal. Best matches found.")
-        break
-      } else {break}
-    }
+charscore <- function(dfa,dfb){
+  index <- expand.grid(1:length(dfb),1:length(dfb))
+  score <- function(index,catA,catB){
+    d <- datadist(data.frame(model.matrix(~catA[,index[1]]-1, data = catA)),
+                  data.frame(model.matrix(~catB[,index[2]]-1, data = catB)))$numdist
+    rownames(d) <- sort(unique(catA[,index[1]]))
+    colnames(d) <- sort(unique(catB[,index[2]]))
+    numscore(d)$score
   }
 
-  indices$r <- rownames(dmat)[indices$r]
-  indices$c <- colnames(dmat)[indices$c]
-
-  nameA <- names(charA)
-  nameB <- names(charB)
-
-
+  matrix(apply(index,1,score,catA=dfa,catB=dfb), nrow=ncol(dfa),
+         dimnames = list(colnames(dfa), colnames(dfb)))
   }

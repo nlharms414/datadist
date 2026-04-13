@@ -30,7 +30,7 @@
 datadist <- function(dfa,dfb){
   a <- as.data.frame(dfa[])  # convert to data.frames if not
   b <- as.data.frame(dfb[])
-  if(all((class(a)=="data.frame")==F) | all((class(b)=="data.frame")==F)){
+  if(all((class(a)=="data.frame")==F) || all((class(b)=="data.frame")==F)){
     stop("Could not convert to data.frame.")
   }
 
@@ -42,9 +42,9 @@ datadist <- function(dfa,dfb){
   nummat <- matrix(NA,nrow = ncol(numA),ncol = ncol(numB))
   charmat <- matrix(NA,nrow = ncol(charA),ncol = ncol(charB))
 
-  returns <- list(numdist = NA, chardist = NA)
+  returns <- list(numdist = NA, charA = charA, charB = charB)
 
-  if (ncol(numA)>0 || ncol(numb)>0) {
+  if (ncol(numA)>0 || ncol(numB)>0) {
     for (i in 1:ncol(numA)) {
       for (j in 1:ncol(numB)) {
         nummat[i,j] <- wassersteinXY(numA[,i],numB[,j])
@@ -55,16 +55,16 @@ datadist <- function(dfa,dfb){
     returns[[1]] <- nummat
   }
 
-  if (ncol(charA)>0 || ncol(charB)>0) {
-    for (i in 1:ncol(charA)) {
-      for (j in 1:ncol(charB)) {
-        charmat[i,j] <- wassersteinXY(table(charA[,i]),table(charB[,j]))
-      }
-    }
-    colnames(charmat) <- colnames(charB)
-    rownames(charmat) <- colnames(charA)
-    returns[[2]] <- charmat
-  }
+  # if (ncol(charA)>0 || ncol(charB)>0) {
+  #   for (i in 1:ncol(charA)) {
+  #     for (j in 1:ncol(charB)) {
+  #       charmat[i,j] <- wassersteinXY(table(charA[,i]),table(charB[,j]))
+  #     }
+  #   }
+  #   colnames(charmat) <- colnames(charB)
+  #   rownames(charmat) <- colnames(charA)
+  #   returns[[2]] <- charmat
+  # }
 
   returns
 }

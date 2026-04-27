@@ -17,6 +17,7 @@
 #' categorical variables from two datasets.
 
 charscore <- function(dfa,dfb){
+
   index <- expand.grid(1:length(dfb),1:length(dfb))
   score <- function(index,catA,catB){
     d <- datadist(data.frame(model.matrix(~catA[,index[1]]-1, data = catA)),

@@ -2,6 +2,7 @@
 
 export(charscore)
 export(datadist)
+export(numdist)
 export(numscore)
 export(wassersteinXY)
 importFrom(stats,ecdf)

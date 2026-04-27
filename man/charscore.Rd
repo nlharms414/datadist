@@ -12,8 +12,8 @@ charscore(dfa, dfb)
 \item{dfb}{Data frame B to compare to `dfa`}
 }
 \value{
-A list containing a dataframe with variable mappings & distances and
-an overall dataframe distance score.
+A list containing a matrix containing distance scores between
+categorical variables from two datasets.
 }
 \description{
 Computes a distance matrix and distance (similarity) score for the categorical

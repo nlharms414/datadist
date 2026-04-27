@@ -4,7 +4,7 @@
 \alias{numscore}
 \title{Generates distance score for numerical columns.}
 \usage{
-numscore(dfa, dfb)
+numscore(dmat)
 }
 \arguments{
 \item{dfa}{Data frame A to compare to `dfb`}

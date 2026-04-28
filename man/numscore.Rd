@@ -7,9 +7,7 @@
 numscore(dmat)
 }
 \arguments{
-\item{dfa}{Data frame A to compare to `dfb`}
-
-\item{dfb}{Data frame B to compare to `dfa`}
+\item{dmat}{matrix of distances between pairwise numeric variables calculated in datadist}
 }
 \value{
 A list containing a dataframe with variable mappings & distances and

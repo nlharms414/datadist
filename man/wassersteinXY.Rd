@@ -4,12 +4,14 @@
 \alias{wassersteinXY}
 \title{Calculate the Wasserstein distance between two random variables}
 \usage{
-wassersteinXY(X, Y, p = 1, knots = max(c(length(X), length(Y))))
+wassersteinXY(X, Y, scale = FALSE, p = 1, knots = max(c(length(X), length(Y))))
 }
 \arguments{
 \item{X}{a real-valued random variable}
 
 \item{Y}{a real-valued random variable}
+
+\item{scale}{binary value indicating whether variables are to be normalized}
 
 \item{p}{non-negative value identifying the norm. $p$ = 1 is Manhattan norm, $p=2$ is Euclidean distance.}
 
@@ -28,5 +30,6 @@ in the p-norm.
 x <- runif(1000)
 y <- runif(500)
 wassersteinXY(x, y, knots=50)
-transport::wasserstein1d(x, y)
+wassersteinXY(x, y, scale=TRUE, knots=50)
+# compare to results from transport::wasserstein1d(x, y)
 }

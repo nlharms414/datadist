@@ -8,8 +8,10 @@
 #' @param dfa Data frame A to compare to `dfb`
 #' @param dfb Data frame B to compare to `dfa`
 #'
+#' @importFrom stats model.matrix
 #' @examples
-#' chardist(dataA,dataB)
+#' chardist(penguins[, c("species", "island", "sex")],
+#'          penguins_raw[, c("studyName", "Species", "Region", "Island", "Sex")])
 #'
 #' @export
 #'
@@ -33,9 +35,11 @@ chardist <- function(dfa,dfb){
                   data.frame(model.matrix(~catB[,index[2]]-1, data = catB)))
     rownames(d) <- sort(unique(catA[,index[1]]))
     colnames(d) <- sort(unique(catB[,index[2]]))
+    print(d)
     dscore(d)$score
   }
-
-  matrix(apply(index,1,score,catA=charA,catB=charB), nrow=ncol(charA),
+browser()
+  result <- apply(index,1,score,catA=charA,catB=charB)
+  matrix(, nrow=ncol(charA),
          dimnames = list(colnames(charA), colnames(charB)))
 }

@@ -5,6 +5,7 @@
 #' in the p-norm.
 #' @param X a real-valued random variable
 #' @param Y a real-valued random variable
+#' @param scale binary value indicating whether variables are to be normalized
 #' @param p non-negative value identifying the norm. $p$ = 1 is Manhattan norm, $p=2$ is Euclidean distance.
 #' @param knots non negative integer value specifying the number of evaluations within the ranges of X and Y.
 #' @importFrom stats ecdf
@@ -15,12 +16,18 @@
 #' x <- runif(1000)
 #' y <- runif(500)
 #' wassersteinXY(x, y, knots=50)
-#' transport::wasserstein1d(x, y)
-wassersteinXY <- function(X, Y, p = 1, knots=max(c(length(X), length(Y)))) {
+#' wassersteinXY(x, y, scale=TRUE, knots=50)
+#' # compare to results from transport::wasserstein1d(x, y)
+wassersteinXY <- function(X, Y, scale=FALSE,  p = 1, knots=max(c(length(X), length(Y)))) {
   # if either X or Y is not numeric, return an NA for now
   # Inf might also work
   if (!is.numeric(X)) return(NA)
   if (!is.numeric(Y)) return(NA)
+
+  if (scale) {
+    X <- scale(X)
+    Y <- scale(Y)
+  }
 
   # estimate the distribution functions
   FX <- ecdf(X)

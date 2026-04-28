@@ -6,8 +6,7 @@
 #' variables of two data frames.
 #'
 #'
-#' @param dfa Data frame A to compare to `dfb`
-#' @param dfb Data frame B to compare to `dfa`
+#' @param dmat matrix of distances between pairwise numeric variables calculated in datadist
 #'
 #' @examples
 #' # example code

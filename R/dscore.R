@@ -10,7 +10,8 @@
 #' @param dfb Data frame B to compare to `dfa`
 #'
 #' @examples
-#' dscore(numdist(dataA, dataB))
+#' dscore(numdist(penguins[,c("bill_len", "bill_dep")],
+#'                penguins_raw[,c("Flipper Length (mm)", "Culmen Length (mm)")]))
 #'
 #' @export
 #' @returns A list containing a dataframe with variable mappings & distances and
@@ -44,9 +45,12 @@ dscore <- function(dmat){
       } else {break}
     }
   }
-
   indices$r <- rownames(dmat)[indices$r]
   indices$c <- colnames(dmat)[indices$c]
+  if (!is.null(attr(dmat, "dfa")))
+    names(indices)[1] <- as.character(attr(dmat, "dfa"))
+  if (!is.null(attr(dmat, "dfb")))
+    names(indices)[2] <- as.character(attr(dmat, "dfb"))
   returns[1:3] <- list(dmat,indices,sum(indices$dist))
 
   returns

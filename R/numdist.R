@@ -27,6 +27,10 @@
 #' numdist(dataA, dataB)
 
 numdist <- function(dfa,dfb){
+  cl <- match.call()
+  name_dfa <- cl$dfa
+  name_dfb <- cl$dfb
+
   a <- as.data.frame(dfa[])  # convert to data.frames if not
   b <- as.data.frame(dfb[])
   if(all((class(a)=="data.frame")==F) || all((class(b)=="data.frame")==F)){
@@ -37,6 +41,8 @@ numdist <- function(dfa,dfb){
   numB <- b[sapply(b,is.numeric)]
 
   numdist <- matrix(NA,nrow = ncol(numA),ncol = ncol(numB))
+  attr(numdist, "dfa") <- name_dfa
+  attr(numdist, "dfb") <- name_dfb
 
   if (ncol(numA)>0 || ncol(numB)>0) {
     for (i in 1:ncol(numA)) {
@@ -47,7 +53,6 @@ numdist <- function(dfa,dfb){
     colnames(numdist) <- colnames(numB)
     rownames(numdist) <- colnames(numA)
   }
-
   numdist
 }
 

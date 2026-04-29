@@ -24,8 +24,10 @@ chardist <- function(dfa,dfb){
     stop("Could not convert to data.frame.")
   }
 
-  charA <- a[sapply(a,is.numeric)==F]
-  charB <- b[sapply(b,is.numeric)==F]
+  allA <- a[sapply(a,is.numeric)==F]
+  allB <- b[sapply(b,is.numeric)==F]
+
+  charA <- charA[,-c(sapply(charA,function(col) all(length(unique(col))==1)))]
 
   index <- expand.grid(1:length(charA),1:length(charB))
   score <- function(index,catA,catB){

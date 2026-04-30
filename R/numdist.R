@@ -1,30 +1,36 @@
-# test function for data distance function
-
 #' @name numdist
-#' @title Difference Measure for Data Sets
+#' @title Difference measure for numerical columns between two data sets.
 #'
 #' @description
-#' Produces a numerical variable distance matrix between two data sets.
+#' Produces a numerical variable distance matrix between two data sets. Dates will
+#' be coerced into a numerical format via `as.numeric`.
 #'
-#' @param dfa data.frame
-#' @param dfb data.frame
-#' @returns `numdist` is returned using the `wassersteinXY()` function to compute a
-#' distance matrix for every numerical variable combination between data frame A
-#' and data frame B.
+#' @param dfa data set A
+#' @param dfb data set B
 #'
-#' @export
+#' @returns A distance matrix created using `wassersteinXY()` on every pairwise combination
+#' of numerical variables between data set A and data set B.
+#'
 #' @examples
 #' # example code
 #' dataA <- data.frame(a = c(1,5,3,2),
 #'                     b = c(4,1,6,8),
 #'                     c = c(3,6,1,7),
-#'                     d = c("apple","orange","banana","mango"))
-#' dataB <- data.frame(a = c(1,9,2,6),
-#'                     b = c(4,2,6,9),
-#'                     c = c(3,6,1,7),
-#'                     d = c(3,7,9,2),
-#'                     e = c("pear","grape","lemon","lime"))
+#'                     d = c("orange","apple","mango","apple"),
+#'                     e = c("one","three","two","one"))
+#' dataB <- data.frame(f = c(4,1,6,8),
+#'                     g = c(1,5,3,2),
+#'                     h = c(3,6,1,7),
+#'                     i = c("one","three","two","one"),
+#'                     j = c(5,6,0,9),
+#'                     k = c("orange","apple","mango","apple"))
+#'
 #' numdist(dataA, dataB)
+#'
+#' numdist(penguins,penguins_raw)
+#'
+#' @export
+#' @importFrom lubridate is.Date
 
 numdist <- function(dfa,dfb){
   a <- as.data.frame(dfa[])  # convert to data.frames if not
@@ -33,22 +39,31 @@ numdist <- function(dfa,dfb){
     stop("Could not convert to data.frame.")
   }
 
+  # browser()
+
   numA <- a[sapply(a,is.numeric)]
   numB <- b[sapply(b,is.numeric)]
 
-  numdist <- matrix(NA,nrow = ncol(numA),ncol = ncol(numB))
-
-  if (ncol(numA)>0 || ncol(numB)>0) {
-    for (i in 1:ncol(numA)) {
-      for (j in 1:ncol(numB)) {
-        numdist[i,j] <- wassersteinXY(numA[,i],numB[,j])
-      }
-    }
-    colnames(numdist) <- colnames(numB)
-    rownames(numdist) <- colnames(numA)
+  if(length(which(sapply(a,function(col) lubridate::is.Date(col))))!=0) {
+    numA <- sapply(a[c(which(sapply(a,is.numeric)),which(sapply(a,lubridate::is.Date)))],
+                   as.numeric)
   }
 
-  numdist
+  if(length(which(sapply(b,function(col) lubridate::is.Date(col))))!=0) {
+    numB <- sapply(b[c(which(sapply(b,is.numeric)),which(sapply(b,lubridate::is.Date)))],
+                   as.numeric)
+  }
+
+  index <- expand.grid(1:ncol(numA),1:ncol(numB))
+
+  distance <- function(index,x,y){
+    wassersteinXY(x[,index[1]],y[,index[2]])
+  }
+
+  result <- apply(index,1,distance,x=numA,y=numB)
+  dmat <- matrix(result, nrow=ncol(numA),
+         dimnames = list(colnames(numA), colnames(numB)))
+
+  list(dmat = dmat, distscore = suppressWarnings(dscore(dmat)$distscore))
 }
 
-# get rid of for loop somehow?

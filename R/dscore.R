@@ -1,23 +1,30 @@
 #' @name dscore
-#' @title Generates distance score for a distance matrix.
+#' @title Generates distance score for a distance matrix and maps variables.
 #'
 #' @description
 #' Computes a distance matrix and distance (similarity) score for the numerical
-#' or categorical variables of two data frames.
+#' or categorical variables of two data frames. Also gives mappings for the
+#' best matched variables between two data sets.
+#' `dscore()` can also compute a similarity score and provide mappings for two
+#' individual categorical variables between two data sets. Mappings will map
+#' the best matched categories between the two variables.
 #'
+#' @param dmat distance matrix between numerical variables, categorical variables,
+#' or two individual categorical variables between two data sets.
 #'
-#' @param dfa Data frame A to compare to `dfb`
-#' @param dfb Data frame B to compare to `dfa`
+#' @returns A list containing a dataframe with variable mappings & distances,
+#' overall data distance score, original distance matrix, and extra columns (if
+#' any) that could not be matched.
 #'
 #' @examples
 #' dscore(numdist(dataA, dataB))
 #'
+#' dscore(chardist(penguins$species,penguins_raw$Species))
+#'
 #' @export
-#' @returns A list containing a dataframe with variable mappings & distances and
-#' an overall dataframe distance score.
 
 dscore <- function(dmat){
-  returns <- list(distmat=NA, mappings=NA, score=NA, extracols=NA)
+  returns <- list(mappings=NA, distmat=NA, distscore=NA, extracols=NA)
 
   mins <- which(dmat==min(dmat), arr.ind = TRUE)
   indices <- data.frame(r = mins[1,1], c = mins[1,2],
@@ -47,7 +54,9 @@ dscore <- function(dmat){
 
   indices$r <- rownames(dmat)[indices$r]
   indices$c <- colnames(dmat)[indices$c]
-  returns[1:3] <- list(dmat,indices,sum(indices$dist))
+  returns[1:3] <- list(indices,dmat,sum(indices$dist))
 
   returns
 }
+
+# perhaps add tolerance?

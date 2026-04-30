@@ -2,33 +2,39 @@
 % Please edit documentation in R/numdist.R
 \name{numdist}
 \alias{numdist}
-\title{Difference Measure for Data Sets}
+\title{Difference measure for numerical columns between two data sets.}
 \usage{
 numdist(dfa, dfb)
 }
 \arguments{
-\item{dfa}{data.frame}
+\item{dfa}{data set A}
 
-\item{dfb}{data.frame}
+\item{dfb}{data set B}
 }
 \value{
-`numdist` is returned using the `wassersteinXY()` function to compute a
-distance matrix for every numerical variable combination between data frame A
-and data frame B.
+A distance matrix created using `wassersteinXY()` on every pairwise combination
+of numerical variables between data set A and data set B.
 }
 \description{
-Produces a numerical variable distance matrix between two data sets.
+Produces a numerical variable distance matrix between two data sets. Dates will
+be coerced into a numerical format via `as.numeric`.
 }
 \examples{
 # example code
 dataA <- data.frame(a = c(1,5,3,2),
                     b = c(4,1,6,8),
                     c = c(3,6,1,7),
-                    d = c("apple","orange","banana","mango"))
-dataB <- data.frame(a = c(1,9,2,6),
-                    b = c(4,2,6,9),
-                    c = c(3,6,1,7),
-                    d = c(3,7,9,2),
-                    e = c("pear","grape","lemon","lime"))
+                    d = c("orange","apple","mango","apple"),
+                    e = c("one","three","two","one"))
+dataB <- data.frame(f = c(4,1,6,8),
+                    g = c(1,5,3,2),
+                    h = c(3,6,1,7),
+                    i = c("one","three","two","one"),
+                    j = c(5,6,0,9),
+                    k = c("orange","apple","mango","apple"))
+
 numdist(dataA, dataB)
+
+numdist(penguins,penguins_raw)
+
 }

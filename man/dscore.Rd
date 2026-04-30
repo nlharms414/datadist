@@ -2,24 +2,30 @@
 % Please edit documentation in R/dscore.R
 \name{dscore}
 \alias{dscore}
-\title{Generates distance score for a distance matrix.}
+\title{Generates distance score for a distance matrix and maps variables.}
 \usage{
 dscore(dmat)
 }
 \arguments{
-\item{dfa}{Data frame A to compare to `dfb`}
-
-\item{dfb}{Data frame B to compare to `dfa`}
+\item{dmat}{distance matrix between numerical variables, categorical variables,
+or two individual categorical variables between two data sets.}
 }
 \value{
-A list containing a dataframe with variable mappings & distances and
-an overall dataframe distance score.
+A list containing a dataframe with variable mappings & distances,
+overall data distance score, original distance matrix, and extra columns (if
+any) that could not be matched.
 }
 \description{
 Computes a distance matrix and distance (similarity) score for the numerical
-or categorical variables of two data frames.
+or categorical variables of two data frames. Also gives mappings for the
+best matched variables between two data sets.
+`dscore()` can also compute a similarity score and provide mappings for two
+individual categorical variables between two data sets. Mappings will map
+the best matched categories between the two variables.
 }
 \examples{
 dscore(numdist(dataA, dataB))
+
+dscore(chardist(penguins$species,penguins_raw$Species))
 
 }

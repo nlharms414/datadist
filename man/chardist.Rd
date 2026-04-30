@@ -7,18 +7,22 @@
 chardist(dfa, dfb)
 }
 \arguments{
-\item{dfa}{Data frame A to compare to `dfb`}
+\item{dfa}{data set A or variable A to compare to data set B or variable
+B (`dfb`).}
 
-\item{dfb}{Data frame B to compare to `dfa`}
+\item{dfb}{data set B  or variable B to compare to data set A or variable
+A (`dfa`).}
 }
 \value{
-A distance matrix for the categorical variables between two data sets.
+A distance matrix for the categorical variables between two data
+sets, plus the distance score.
 }
 \description{
 Computes a distance matrix and distance (similarity) score for the categorical
-columns in two data sets.
+columns in two data sets. Can compute a distance matrix between the categories
+of two individual categorical variables.
 }
 \examples{
-chardist(dataA,dataB)
+chardist(penguins,penguins_raw)
 
 }

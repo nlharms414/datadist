@@ -19,6 +19,7 @@ Computes a distance matrix and distance (similarity) score for the categorical
 columns in two data sets.
 }
 \examples{
-chardist(dataA,dataB)
+chardist(penguins[, c("species", "island", "sex")],
+         penguins_raw[, c("Species", "Region", "Island", "Sex")])
 
 }

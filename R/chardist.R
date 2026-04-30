@@ -18,6 +18,11 @@
 #' @returns A distance matrix for the categorical variables between two data sets.
 
 chardist <- function(dfa,dfb){
+  cl <- match.call()
+
+  name_dfa <- deparse(cl$dfa)
+  name_dfb <- deparse(cl$dfb)
+
   a <- as.data.frame(dfa[])  # convert to data.frames if not
   b <- as.data.frame(dfb[])
   if(all((class(a)=="data.frame")==F) || all((class(b)=="data.frame")==F)){

@@ -20,6 +20,7 @@ Computes a distance matrix and distance (similarity) score for the numerical
 or categorical variables of two data frames.
 }
 \examples{
-dscore(numdist(dataA, dataB))
+dscore(numdist(penguins[,c("bill_len", "bill_dep")],
+               penguins_raw[,c("Flipper Length (mm)", "Culmen Length (mm)")]))
 
 }

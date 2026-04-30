@@ -3,6 +3,7 @@
 #' The distance between two character (or factor) variables is being calculated.
 #' @param varA vector from dataset A
 #' @param varB vector from dataset B
+#' @importFrom stats model.matrix
 #' @examples
 #' # example code
 #' chardist_XY(penguins$species, penguins_raw$Sex)

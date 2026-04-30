@@ -28,8 +28,9 @@
 
 numdist <- function(dfa,dfb){
   cl <- match.call()
-  name_dfa <- cl$dfa
-  name_dfb <- cl$dfb
+
+  name_dfa <- deparse(cl$dfa)
+  name_dfb <- deparse(cl$dfb)
 
   a <- as.data.frame(dfa[])  # convert to data.frames if not
   b <- as.data.frame(dfb[])

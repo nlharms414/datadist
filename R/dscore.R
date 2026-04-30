@@ -48,9 +48,9 @@ dscore <- function(dmat){
   indices$r <- rownames(dmat)[indices$r]
   indices$c <- colnames(dmat)[indices$c]
   if (!is.null(attr(dmat, "dfa")))
-    names(indices)[1] <- as.character(attr(dmat, "dfa"))
+    names(indices)[1] <- attr(dmat, "dfa")
   if (!is.null(attr(dmat, "dfb")))
-    names(indices)[2] <- as.character(attr(dmat, "dfb"))
+    names(indices)[2] <- attr(dmat, "dfb")
   returns[1:3] <- list(dmat,indices,sum(indices$dist))
 
   returns

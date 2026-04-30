@@ -17,17 +17,27 @@ chardist_XY <- function(varA, varB) {
   if (nA == nB) {
     same_values <- all(varA == varB)
     if (!same_values) {
-      print("use the stringdist package to find a string distance between the values")
+      message("use the stringdist package to find a string distance between the values")
     }
   }
 
   # check character distance first:
   varA_char <- as.character(varA)
   varB_char <- as.character(varB)
-  dfA <- data.frame(model.matrix(~varA_char-1))
-  names(dfA) <- gsub("^varA_char", "", names(dfA))
-  dfB <- data.frame(model.matrix(~varB_char-1))
-  names(dfB) <- gsub("^varB_char", "", names(dfB))
+
+  if (length(unique(varA_char)) == 1) {
+    dfA <- data.frame(model.matrix(~1))
+    names(dfA) <- varA_char[1]
+  } else { dfA <- data.frame(model.matrix(~varA_char-1))
+    names(dfA) <- gsub("^varA_char", "", names(dfA))
+  }
+  if (length(unique(varB_char)) == 1) {
+    dfB <- data.frame(model.matrix(~1))
+    names(dfB) <- varB_char[1]
+  } else {
+    dfB <- data.frame(model.matrix(~varB_char-1))
+    names(dfB) <- gsub("^varB_char", "", names(dfB))
+  }
   charmat <- numdist(dfA, dfB)
 
   # check factor distance:

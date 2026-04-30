@@ -33,6 +33,11 @@
 #' @importFrom lubridate is.Date
 
 numdist <- function(dfa,dfb){
+  # cl <- match.call()
+  #
+  # name_dfa <- deparse(cl$dfa)
+  # name_dfb <- deparse(cl$dfb)
+
   a <- as.data.frame(dfa[])  # convert to data.frames if not
   b <- as.data.frame(dfb[])
   if(all((class(a)=="data.frame")==F) || all((class(b)=="data.frame")==F)){
@@ -65,5 +70,20 @@ numdist <- function(dfa,dfb){
          dimnames = list(colnames(numA), colnames(numB)))
 
   list(dmat = dmat, distscore = suppressWarnings(dscore(dmat)$distscore))
+  # numdist <- matrix(NA,nrow = ncol(numA),ncol = ncol(numB))
+  # attr(numdist, "dfa") <- name_dfa
+  # attr(numdist, "dfb") <- name_dfb
+  #
+  # if (ncol(numA)>0 || ncol(numB)>0) {
+  #   for (i in 1:ncol(numA)) {
+  #     for (j in 1:ncol(numB)) {
+  #       numdist[i,j] <- wassersteinXY(numA[,i],numB[,j])
+  #     }
+  #   }
+  #   colnames(numdist) <- colnames(numB)
+  #   rownames(numdist) <- colnames(numA)
+  # }
+  # numdist
+
 }
 

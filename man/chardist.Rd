@@ -23,6 +23,11 @@ columns in two data sets. Can compute a distance matrix between the categories
 of two individual categorical variables.
 }
 \examples{
+<<<<<<< HEAD
 chardist(penguins,penguins_raw)
+=======
+chardist(penguins[, c("species", "island", "sex")],
+         penguins_raw[, c("Species", "Region", "Island", "Sex")])
+>>>>>>> f4f95be14e43e87ace4285dfd6b92ecc6e83bddc
 
 }

@@ -24,8 +24,7 @@ individual categorical variables between two data sets. Mappings will map
 the best matched categories between the two variables.
 }
 \examples{
-dscore(numdist(penguins[,c("bill_len", "bill_dep")],
-               penguins_raw[,c("Flipper Length (mm)", "Culmen Length (mm)")]))
+dscore(numdist(penguins,penguins_raw)$dmat)
 
 dscore(chardist(penguins$species,penguins_raw$Species))
 

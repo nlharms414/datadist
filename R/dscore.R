@@ -53,14 +53,13 @@ dscore <- function(dmat){
   }
   indices$r <- rownames(dmat)[indices$r]
   indices$c <- colnames(dmat)[indices$c]
-  returns[1:3] <- list(indices,dmat,sum(indices$dist))
-  # if (!is.null(attr(dmat, "dfa")))
-  #   names(indices)[1] <- attr(dmat, "dfa")
-  # if (!is.null(attr(dmat, "dfb")))
-  #   names(indices)[2] <- attr(dmat, "dfb")
-  # returns[1:3] <- list(dmat,indices,sum(indices$dist))
+
+  if (!is.null(attr(dmat, "dfa")))
+    names(indices)[1] <- attr(dmat, "dfa")
+  if (!is.null(attr(dmat, "dfb")))
+    names(indices)[2] <- attr(dmat, "dfb")
+  returns[1:3] <- list(dmat,indices,sum(indices$dist))
 
   returns
 }
 
-# perhaps add tolerance?

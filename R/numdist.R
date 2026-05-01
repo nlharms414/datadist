@@ -33,10 +33,10 @@
 #' @importFrom lubridate is.Date
 
 numdist <- function(dfa,dfb){
-  # cl <- match.call()
-  #
-  # name_dfa <- deparse(cl$dfa)
-  # name_dfb <- deparse(cl$dfb)
+  cl <- match.call()
+
+  name_dfa <- deparse(cl$dfa)
+  name_dfb <- deparse(cl$dfb)
 
   a <- as.data.frame(dfa[])  # convert to data.frames if not
   b <- as.data.frame(dfb[])
@@ -46,44 +46,23 @@ numdist <- function(dfa,dfb){
 
   # browser()
 
-  numA <- a[sapply(a,is.numeric)]
-  numB <- b[sapply(b,is.numeric)]
+  numA <- date_cols(a[sapply(a,is.numeric)],a,add=T)
+  numB <- date_cols(b[sapply(b,is.numeric)],b,add=T)
 
-  if(length(which(sapply(a,function(col) lubridate::is.Date(col))))!=0) {
-    numA <- sapply(a[c(which(sapply(a,is.numeric)),which(sapply(a,lubridate::is.Date)))],
-                   as.numeric)
+  numdist <- matrix(NA,nrow = ncol(numA),ncol = ncol(numB))
+  attr(numdist, "dfa") <- name_dfa
+  attr(numdist, "dfb") <- name_dfb
+
+  if (ncol(numA)>0 || ncol(numB)>0) {
+    for (i in 1:ncol(numA)) {
+      for (j in 1:ncol(numB)) {
+        numdist[i,j] <- wassersteinXY(numA[,i],numB[,j])
+      }
+    }
+    colnames(numdist) <- colnames(numB)
+    rownames(numdist) <- colnames(numA)
   }
-
-  if(length(which(sapply(b,function(col) lubridate::is.Date(col))))!=0) {
-    numB <- sapply(b[c(which(sapply(b,is.numeric)),which(sapply(b,lubridate::is.Date)))],
-                   as.numeric)
-  }
-
-  index <- expand.grid(1:ncol(numA),1:ncol(numB))
-
-  distance <- function(index,x,y){
-    wassersteinXY(x[,index[1]],y[,index[2]])
-  }
-
-  result <- apply(index,1,distance,x=numA,y=numB)
-  dmat <- matrix(result, nrow=ncol(numA),
-         dimnames = list(colnames(numA), colnames(numB)))
-
-  list(dmat = dmat, distscore = suppressWarnings(dscore(dmat)$distscore))
-  # numdist <- matrix(NA,nrow = ncol(numA),ncol = ncol(numB))
-  # attr(numdist, "dfa") <- name_dfa
-  # attr(numdist, "dfb") <- name_dfb
-  #
-  # if (ncol(numA)>0 || ncol(numB)>0) {
-  #   for (i in 1:ncol(numA)) {
-  #     for (j in 1:ncol(numB)) {
-  #       numdist[i,j] <- wassersteinXY(numA[,i],numB[,j])
-  #     }
-  #   }
-  #   colnames(numdist) <- colnames(numB)
-  #   rownames(numdist) <- colnames(numA)
-  # }
-  # numdist
+  numdist
 
 }
 

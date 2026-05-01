@@ -13,7 +13,6 @@
 #' distance matrix for every numerical variable combination between data frame A
 #' and data frame B. `chardist` is found likewise.
 #'
-#' @export
 #' @examples
 #' # example code
 #' dataA <- data.frame(a = c(1,5,3,2),
@@ -25,7 +24,6 @@
 #'                     c = c(3,6,1,7),
 #'                     d = c(3,7,9,2),
 #'                     e = c("pear","grape","lemon","lime"))
-#' datadist(dataA, dataB)
 
 datadist <- function(dfa,dfb){
   a <- as.data.frame(dfa[])  # convert to data.frames if not

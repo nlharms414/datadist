@@ -2,7 +2,7 @@
 % Please edit documentation in R/chardist_XY.R
 \name{chardist_XY}
 \alias{chardist_XY}
-\title{Distance between two character variables}
+\title{Compares two catecorical (or factor) columns between two data sets.}
 \usage{
 chardist_XY(varA, varB)
 }
@@ -11,10 +11,16 @@ chardist_XY(varA, varB)
 
 \item{varB}{vector from dataset B}
 }
+\value{
+A a binary response indicating if two variables are identical, a
+marginal distance between the two variables as factors, and objects
+returned by use of dscore().
+}
 \description{
 The distance between two character (or factor) variables is being calculated.
 }
 \examples{
 # example code
 chardist_XY(penguins$species, penguins_raw$Sex)
+
 }

@@ -31,5 +31,4 @@ dataB <- data.frame(a = c(1,9,2,6),
                     c = c(3,6,1,7),
                     d = c(3,7,9,2),
                     e = c("pear","grape","lemon","lime"))
-datadist(dataA, dataB)
 }

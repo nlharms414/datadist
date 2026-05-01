@@ -27,7 +27,7 @@ date_cols <- function(dfA, dfB=NA, add = TRUE){
 
   if(add == TRUE){
     if(length(which_dates(dfB))!=0) {
-      return(cbind(dfA, dfB[,which_dates(dfB), drop=F]))
+      return(cbind(dfA, sapply(dfB[,which_dates(dfB), drop=F],as.numeric)))
     } else {
       return(dfA)
     }

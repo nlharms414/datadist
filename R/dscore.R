@@ -17,9 +17,7 @@
 #' any) that could not be matched.
 #'
 #' @examples
-#' dscore(numdist(penguins,penguins_raw)$dmat)
-#'
-#' dscore(chardist(penguins$species,penguins_raw$Species))
+#' dscore(numdist(penguins,penguins_raw))
 #'
 #' @export
 

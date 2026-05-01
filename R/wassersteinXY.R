@@ -18,6 +18,7 @@
 #' wassersteinXY(x, y, knots=50)
 #' wassersteinXY(x, y, scale=TRUE, knots=50)
 #' # compare to results from transport::wasserstein1d(x, y)
+
 wassersteinXY <- function(X, Y, scale=FALSE,  p = 1, knots=max(c(length(X), length(Y)))) {
   # if either X or Y is not numeric, return an NA for now
   # Inf might also work

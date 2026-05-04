@@ -6,8 +6,6 @@
   : Generates distance matrix for categorical columns in two data sets.
 - [`chardist_XY()`](https://nlharms414.github.io/datadist/reference/chardist_XY.md)
   : Compares two catecorical (or factor) columns between two data sets.
-- [`datadist()`](https://nlharms414.github.io/datadist/reference/datadist.md)
-  : Difference Measure for Data Sets
 - [`date_cols()`](https://nlharms414.github.io/datadist/reference/date_cols.md)
   : Adds or removes date columns from a data frame.
 - [`dscore()`](https://nlharms414.github.io/datadist/reference/dscore.md)

@@ -7,7 +7,11 @@
 
 <!-- badges: end -->
 
-The goal of datadist is to …
+The goal of `datadist` is to compare two datasets to determine what
+makes them different. Specifically, if there are two datasets that claim
+to be the same, are they exactly the same, or have minor changes been
+made? `datadist` can help detect these changes through use of the
+Wasserstein (earth mover) distance.
 
 ## Installation
 

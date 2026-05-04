@@ -24,7 +24,7 @@ The goal of datadist is to ...
 
 You can install the development version of datadist from [GitHub](https://github.com/) with:
 
-``` {r}
+``` {r message=F}
 # install.packages("pak")
 pak::pak("nlharms414/datadist")
 ```

@@ -17,24 +17,6 @@ You can install the development version of datadist from
 ``` r
 # install.packages("pak")
 pak::pak("nlharms414/datadist")
-#> ℹ Loading metadata database
-#> ✔ Loading metadata database ... done
-#> 
-#> 
-#> → Will install 3 packages.
-#> → Will update 1 package.
-#> → Will download 1 package with unknown size.
-#> + datadist   0.1.0 → 0.1.0 👷🏻‍♀️🔧 ⬇ (GitHub: 7b3903f)
-#> + generics           0.1.4 
-#> + lubridate          1.9.5 🔧
-#> + timechange         0.4.0 🔧
-#> ℹ Getting 1 pkg with unknown size, 3 (1.94 MB) cached
-#> ✔ Cached copy of datadist 0.1.0 (source) is the latest build
-#> ✔ Installed datadist 0.1.0 (github::nlharms414/datadist@7b3903f) (32ms)
-#> ✔ Installed generics 0.1.4  (59ms)
-#> ✔ Installed lubridate 1.9.5  (68ms)
-#> ✔ Installed timechange 0.4.0  (73ms)
-#> ✔ 1 pkg + 3 deps: upd 1, added 3 [3.5s]
 ```
 
 ## Example

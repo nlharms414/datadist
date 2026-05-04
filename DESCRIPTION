@@ -1,16 +1,21 @@
 Package: datadist
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Package for detecting differences in datasets
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
+      "Heike", "Hofmann",
+      email = "hhofmann4@unl.edu",
+      role = c("aut", "cre")
+    ),
+    person(
+      "Nicole", "Harms",
+      email = "nharms5@huskers.unl.edu",
       role = c("aut", "cre")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
+Description: This package is designed to detect differences between datasets,
+    and what causes the differences between the two.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

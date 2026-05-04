@@ -11,7 +11,7 @@ Authors@R: c(
     person(
       "Nicole", "Harms",
       email = "nharms5@huskers.unl.edu",
-      role = c("aut", "cre")
+      role = c("aut")
     )
   )
 Description: This package is designed to detect differences between datasets,

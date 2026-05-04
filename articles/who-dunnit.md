@@ -5,14 +5,15 @@ This vignette features a “whodunit” style problem to demonstrate the
 
 ## Palmer Penguins mix up
 
-Uh oh! The original Palmer Penguins (`penguins`) data set has been badly
+Uh oh! The original Palmer Penguins (`penguins`) dataset has been badly
 misshapen. Variable names are missing, categories for categorical
 variables have been replaced with letters, numerical variables have been
 scaled, and columns have been reordered. It is our job to use functions
 from the `datadist` package to determine what what done to the original
-`penguins` data set that resulted in such a catastrophe.
+`penguins` dataset that resulted in such a catastrophe.
 
-First, we’ll want to install the package.
+First, we’ll want to load the package. (If you haven’t already done so,
+install the package.)
 
 ``` r
 
@@ -22,9 +23,9 @@ library(datadist)
 ### Using `chardist`, `dscore`, and `chardist_XY`
 
 Let’s first figure out what happened with the categorical variables in
-the data set. First, we can use `chardist` to generate a distance matrix
+the dataset. First, we can use `chardist` to generate a distance matrix
 for every pairwise combination of categorical variables between the two
-data sets.
+datasets.
 
 ``` r
 
@@ -44,9 +45,9 @@ peng_dist
 #> [1] "penguins_whodunit"
 ```
 
-This result is already pretty telling, but lets use `dscore` to look at
+This result is already pretty telling, but let’s use `dscore` to look at
 variable mappings just to confirm things. The `dist` column will give us
-a distance score between the two variables from each data set that are
+a distance score between the two variables from each dataset that are
 the best match.
 
 ``` r
@@ -61,10 +62,10 @@ dscore(peng_dist)$mappings
 ```
 
 Great! Now we know which variables are which. But, recall that all of
-the categorical variables in the data set had been recoded with letters.
+the categorical variables in the dataset had been recoded with letters.
 Luckily, `chardist_XY` can help us solve that problem. We can use it on
 the variable pairs above to tell us which categories from the original
-data set are represented by each letter. `chardist_XY` is designed to
+dataset are represented by each letter. `chardist_XY` is designed to
 work on single variable comparisons, and the results returned are a
 combination of `chardist` and `dscore`.
 
@@ -91,7 +92,7 @@ chardist_XY(penguins$island,penguins_whodunit$Var8)$distmat$mappings
 
 So, how do we interpret the results in their entirety? Well, the use of
 `chardist` and `dscore` told us that `Var4` in `penguins_whodunit` is
-actually `species` from the original `penguins` data set, for example
+actually `species` from the original `penguins` dataset, for example
 (and so on and so forth for the other mappings). Then, if we take a
 closer look at the actual factors in `Var4` and `species`, we can find
 that “A” was actually “Adelie”, “B” was actually “Chinstrap”, and “C”
@@ -102,8 +103,7 @@ covered, let’s move on to the numerical ones.
 ### Using `numdist` and `dscore`
 
 With the numerical variables, the goal here is to simply match the
-variables. Let’s run `numdist` on the two data sets and see what
-happens.
+variables. Let’s run `numdist` on the two datasets and see what happens.
 
 ``` r
 
@@ -122,18 +122,18 @@ numdist(penguins,penguins_whodunit)
 
 Huh. That’s weird- none of the distance values indicate that that any of
 the numerical variables in `penguins_whodunit` are good matches for the
-variables in the original `penguins` data set. What’s going on here?
+variables in the original `penguins` dataset. What’s going on here?
 
-Looking at the numerical variables in the `penguins_whodunit` data set,
+Looking at the numerical variables in the `penguins_whodunit` dataset,
 we can tell they have all been normalized. So, when we use `numdist` to
 look at a distance matrix of all the numerical variables, we want to set
 the `scale` option to `TRUE`. Why? `numdist` relies on `wasserstein_XY`,
 a function that computes the Wasserstein distance between two variables.
-Since the computation of the Wasserstein distance relies on the distance
-between the actual data values themselves, we should scale the variables
-in both data sets before computing the Wasserstein distance to get them
-both on the same scale. Then, the distance calculation between the two
-variables will be more accurate.
+Since the computation of the Wasserstein distance relies partly on the
+distance between the actual data values themselves, we should scale the
+variables in both datasets before computing the Wasserstein distance to
+get them both on the same scale. Then, the distance calculation between
+the two variables will be more accurate.
 
 ``` r
 
@@ -168,9 +168,9 @@ dscore(numdist(penguins,penguins_whodunit, scale = T))$mappings
 `dscore` determined that the mappings seen above result in the lowest
 over all distance score for the numerical variables. Thus, we can
 interpret the results similarly to what we did with the categorical
-variables. Here, `Var1` in the `penguins_whodunit` data set was
-originally the `bill_len` variable in the original data set, and
-likewise we can interpret all the other variable mappings.
+variables. Here, `Var1` in the `penguins_whodunit` dataset was
+originally the `bill_len` variable in the original dataset, and likewise
+we can interpret all the other variable mappings.
 
 It’s noted here that none of the scores between the best matched
 variables are *exactly* zero, though they are close. This again has to
@@ -186,6 +186,6 @@ scores we see above.
 That concludes our sleuthing! By using a combination of `datadist`
 functions, we have now gathered the information needed to figure out
 which variables were which, and subsequently, we have the information we
-need to convert `penguins_whodunit` back to the original `penguins` data
-set. And hopefully along the way, you’ve learned a little more about the
-`datadist` functions and how to use them.
+need to convert `penguins_whodunit` back to the original `penguins`
+dataset. And hopefully along the way, you’ve learned a little more about
+the `datadist` functions and how to use them.

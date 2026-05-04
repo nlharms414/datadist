@@ -70,14 +70,15 @@
 <div class="section level2">
 <h2 id="palmer-penguins-mix-up">Palmer Penguins mix up<a class="anchor" aria-label="anchor" href="#palmer-penguins-mix-up"></a>
 </h2>
-<p>Uh oh! The original Palmer Penguins (<code>penguins</code>) data set
+<p>Uh oh! The original Palmer Penguins (<code>penguins</code>) dataset
 has been badly misshapen. Variable names are missing, categories for
 categorical variables have been replaced with letters, numerical
 variables have been scaled, and columns have been reordered. It is our
 job to use functions from the <code>datadist</code> package to determine
-what what done to the original <code>penguins</code> data set that
+what what done to the original <code>penguins</code> dataset that
 resulted in such a catastrophe.</p>
-<p>First, we’ll want to install the package.</p>
+<p>First, we’ll want to load the package. (If you haven’t already done
+so, install the package.)</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nlharms414/datadist" class="external-link">datadist</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
@@ -85,9 +86,9 @@ resulted in such a catastrophe.</p>
 <code>chardist_XY</code><a class="anchor" aria-label="anchor" href="#using-chardist-dscore-and-chardist_xy"></a>
 </h3>
 <p>Let’s first figure out what happened with the categorical variables
-in the data set. First, we can use <code>chardist</code> to generate a
+in the dataset. First, we can use <code>chardist</code> to generate a
 distance matrix for every pairwise combination of categorical variables
-between the two data sets.</p>
+between the two datasets.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">peng_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chardist.html">chardist</a></span><span class="op">(</span><span class="va">penguins</span>,<span class="va">penguins_whodunit</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in dscore(charmat): Rows and columns not equal. Best matches found.</span></span>
@@ -103,10 +104,10 @@ between the two data sets.</p>
 <span><span class="co">#&gt; [1] "penguins"</span></span>
 <span><span class="co">#&gt; attr(,"dfb")</span></span>
 <span><span class="co">#&gt; [1] "penguins_whodunit"</span></span></code></pre></div>
-<p>This result is already pretty telling, but lets use
+<p>This result is already pretty telling, but let’s use
 <code>dscore</code> to look at variable mappings just to confirm things.
 The <code>dist</code> column will give us a distance score between the
-two variables from each data set that are the best match.</p>
+two variables from each dataset that are the best match.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dscore.html">dscore</a></span><span class="op">(</span><span class="va">peng_dist</span><span class="op">)</span><span class="op">$</span><span class="va">mappings</span></span>
 <span><span class="co">#&gt;   penguins penguins_whodunit dist</span></span>
@@ -116,10 +117,10 @@ two variables from each data set that are the best match.</p>
 <span><span class="co"># dscore() actually returns a list of items</span></span>
 <span><span class="co"># use $ + tab to see what else it returns!</span></span></code></pre></div>
 <p>Great! Now we know which variables are which. But, recall that all of
-the categorical variables in the data set had been recoded with letters.
+the categorical variables in the dataset had been recoded with letters.
 Luckily, <code>chardist_XY</code> can help us solve that problem. We can
 use it on the variable pairs above to tell us which categories from the
-original data set are represented by each letter.
+original dataset are represented by each letter.
 <code>chardist_XY</code> is designed to work on single variable
 comparisons, and the results returned are a combination of
 <code>chardist</code> and <code>dscore</code>.</p>
@@ -144,7 +145,7 @@ comparisons, and the results returned are a combination of
 <p>So, how do we interpret the results in their entirety? Well, the use
 of <code>chardist</code> and <code>dscore</code> told us that
 <code>Var4</code> in <code>penguins_whodunit</code> is actually
-<code>species</code> from the original <code>penguins</code> data set,
+<code>species</code> from the original <code>penguins</code> dataset,
 for example (and so on and so forth for the other mappings). Then, if we
 take a closer look at the actual factors in <code>Var4</code> and
 <code>species</code>, we can find that “A” was actually “Adelie”, “B”
@@ -157,7 +158,7 @@ ones.</p>
 <h3 id="using-numdist-and-dscore">Using <code>numdist</code> and <code>dscore</code><a class="anchor" aria-label="anchor" href="#using-numdist-and-dscore"></a>
 </h3>
 <p>With the numerical variables, the goal here is to simply match the
-variables. Let’s run <code>numdist</code> on the two data sets and see
+variables. Let’s run <code>numdist</code> on the two datasets and see
 what happens.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/numdist.html">numdist</a></span><span class="op">(</span><span class="va">penguins</span>,<span class="va">penguins_whodunit</span><span class="op">)</span></span>
@@ -173,20 +174,20 @@ what happens.</p>
 <span><span class="co">#&gt; [1] "penguins_whodunit"</span></span></code></pre></div>
 <p>Huh. That’s weird- none of the distance values indicate that that any
 of the numerical variables in <code>penguins_whodunit</code> are good
-matches for the variables in the original <code>penguins</code> data
-set. What’s going on here?</p>
+matches for the variables in the original <code>penguins</code> dataset.
+What’s going on here?</p>
 <p>Looking at the numerical variables in the
-<code>penguins_whodunit</code> data set, we can tell they have all been
+<code>penguins_whodunit</code> dataset, we can tell they have all been
 normalized. So, when we use <code>numdist</code> to look at a distance
 matrix of all the numerical variables, we want to set the
 <code>scale</code> option to <code>TRUE</code>. Why?
 <code>numdist</code> relies on <code>wasserstein_XY</code>, a function
 that computes the Wasserstein distance between two variables. Since the
-computation of the Wasserstein distance relies on the distance between
-the actual data values themselves, we should scale the variables in both
-data sets before computing the Wasserstein distance to get them both on
-the same scale. Then, the distance calculation between the two variables
-will be more accurate.</p>
+computation of the Wasserstein distance relies partly on the distance
+between the actual data values themselves, we should scale the variables
+in both datasets before computing the Wasserstein distance to get them
+both on the same scale. Then, the distance calculation between the two
+variables will be more accurate.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/numdist.html">numdist</a></span><span class="op">(</span><span class="va">penguins</span>,<span class="va">penguins_whodunit</span>, scale <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                     Var1         Var2         Var3         Var6         Var7</span></span>
@@ -215,8 +216,8 @@ come in handy.</p>
 the lowest over all distance score for the numerical variables. Thus, we
 can interpret the results similarly to what we did with the categorical
 variables. Here, <code>Var1</code> in the <code>penguins_whodunit</code>
-data set was originally the <code>bill_len</code> variable in the
-original data set, and likewise we can interpret all the other variable
+dataset was originally the <code>bill_len</code> variable in the
+original dataset, and likewise we can interpret all the other variable
 mappings.</p>
 <p>It’s noted here that none of the scores between the best matched
 variables are <em>exactly</em> zero, though they are close. This again
@@ -235,7 +236,7 @@ scores we see above.</p>
 <code>datadist</code> functions, we have now gathered the information
 needed to figure out which variables were which, and subsequently, we
 have the information we need to convert <code>penguins_whodunit</code>
-back to the original <code>penguins</code> data set. And hopefully along
+back to the original <code>penguins</code> dataset. And hopefully along
 the way, you’ve learned a little more about the <code>datadist</code>
 functions and how to use them.</p>
 </div>

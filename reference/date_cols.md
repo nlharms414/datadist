@@ -1,0 +1,39 @@
+# Adds or removes date columns from a data frame.
+
+A function that will add date columns to a specified data frame or
+remove them, based on user specification. Designed as a helper function
+for numdist() and chardist().
+
+## Usage
+
+``` r
+date_cols(dfA, dfB = NA, add = TRUE)
+```
+
+## Arguments
+
+- dfA:
+
+  data frame to add date columns to or remove date columns from.
+
+- dfB:
+
+  optional second data frame to extract date columns from to be added to
+  dfA. Default is NA.
+
+- add:
+
+  binary operator to add or remove date column(s), where TRUE adds the
+  columns. Default is TRUE.
+
+## Value
+
+A data frame with dates either added or removed, based on user
+specification.
+
+## Examples
+
+``` r
+# example code
+
+```

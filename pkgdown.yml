@@ -1,0 +1,10 @@
+pandoc: 3.8.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  general-use: general-use.html
+  who-dunnit: who-dunnit.html
+last_built: 2026-05-04T05:39Z
+urls:
+  reference: https://nlharms414.github.io/datadist/reference
+  article: https://nlharms414.github.io/datadist/articles

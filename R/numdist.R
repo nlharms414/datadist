@@ -7,6 +7,8 @@
 #'
 #' @param dfa data set A
 #' @param dfb data set B
+#' @param scale binary option to set the scale option in `wassersteinXY()` to
+#' TRUE, so variables are scaled before computing distance. Default is FALSE.
 #'
 #' @returns A distance matrix created using `wassersteinXY()` on every pairwise combination
 #' of numerical variables between data set A and data set B.
@@ -27,12 +29,12 @@
 #'
 #' numdist(dataA, dataB)
 #'
-#' numdist(penguins,penguins_raw)
+#' numdist(penguins,penguins_raw, scale=TRUE)
 #'
 #' @export
 #' @importFrom lubridate is.Date
 
-numdist <- function(dfa,dfb){
+numdist <- function(dfa, dfb, scale=FALSE){
   cl <- match.call()
 
   name_dfa <- deparse(cl$dfa)
@@ -54,9 +56,17 @@ numdist <- function(dfa,dfb){
   attr(numdist, "dfb") <- name_dfb
 
   if (ncol(numA)>0 || ncol(numB)>0) {
-    for (i in 1:ncol(numA)) {
-      for (j in 1:ncol(numB)) {
-        numdist[i,j] <- wassersteinXY(numA[,i],numB[,j])
+    if (scale) {
+      for (i in 1:ncol(numA)) {
+        for (j in 1:ncol(numB)) {
+          numdist[i,j] <- wassersteinXY(numA[,i],numB[,j], scale = TRUE)
+        }
+      }
+    } else{
+      for (i in 1:ncol(numA)) {
+        for (j in 1:ncol(numB)) {
+          numdist[i,j] <- wassersteinXY(numA[,i],numB[,j])
+        }
       }
     }
     colnames(numdist) <- colnames(numB)

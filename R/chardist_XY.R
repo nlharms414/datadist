@@ -28,11 +28,11 @@ chardist_XY <- function(varA, varB) {
   nA = length(varA)
   nB = length(varB)
   if (nA == nB) {
-    same_values <- all(varA == varB)
+    same_values <- all(as.character(varA)== as.character(varB))
     if (!same_values) {
       message("use the stringdist package to find a string distance between the values")
     }
-  }
+  } else {same_values <- FALSE}
 
   # check character distance first:
   varA_char <- as.character(varA)

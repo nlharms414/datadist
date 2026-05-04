@@ -38,8 +38,12 @@ chardist <- function(dfa,dfb){
     suppressMessages(chardist_XY(charA[,x[1]], charB[,x[2]])$distmat$distscore)
   })
 
-  matrix(result, nrow=ncol(charA),
-         dimnames = list(colnames(charA), colnames(charB)))
+  chardist <- matrix(result, nrow=ncol(charA),
+                     dimnames = list(colnames(charA), colnames(charB)))
+
+  attr(chardist, "dfa") <- name_dfa
+  attr(chardist, "dfb") <- name_dfb
+  chardist
 
 }
 

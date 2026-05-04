@@ -4,12 +4,15 @@
 \alias{numdist}
 \title{Difference measure for numerical columns between two data sets.}
 \usage{
-numdist(dfa, dfb)
+numdist(dfa, dfb, scale = FALSE)
 }
 \arguments{
 \item{dfa}{data set A}
 
 \item{dfb}{data set B}
+
+\item{scale}{binary option to set the scale option in `wassersteinXY()` to
+TRUE, so variables are scaled before computing distance. Default is FALSE.}
 }
 \value{
 A distance matrix created using `wassersteinXY()` on every pairwise combination
@@ -35,6 +38,6 @@ dataB <- data.frame(f = c(4,1,6,8),
 
 numdist(dataA, dataB)
 
-numdist(penguins,penguins_raw)
+numdist(penguins,penguins_raw, scale=TRUE)
 
 }

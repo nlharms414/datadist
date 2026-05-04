@@ -24,7 +24,7 @@ The goal of datadist is to ...
 
 You can install the development version of datadist from [GitHub](https://github.com/) with:
 
-``` r
+``` {r}
 # install.packages("pak")
 pak::pak("nlharms414/datadist")
 ```
@@ -71,7 +71,7 @@ summary(kgl_diamonds[[3]] - diamonds)
 This is the same picture we get when we calculate the marginal distances between all pairs of variables between the two datasets:
 
 ```{r}
-wasserstein <- datadist(kgl_diamonds[[3]], diamonds)$dist
+wasserstein <- numdist(kgl_diamonds[[3]], diamonds)
 round(wasserstein, 2)
 ```
 
@@ -97,22 +97,22 @@ A value of 0 in this `dscore` indicates that all variables in the datasets have 
 Datasets with an additional variable have the row numbers saved in a first column: 
 
 ```{r}
-wasserstein_1 <- datadist(kgl_diamonds[[1]], diamonds)$dist
+wasserstein_1 <- numdist(kgl_diamonds[[1]], diamonds)
 round(wasserstein_1, 2)
 ```
 
 They are, however, identical to each other:
 
 ```{r}
-wasserstein_12 <- datadist(kgl_diamonds[[1]], kgl_diamonds[[2]])$dist
+wasserstein_12 <- numdist(kgl_diamonds[[1]], kgl_diamonds[[2]])
 round(wasserstein_12, 2)
 ```
 
 More interestingly, the number of observations in `kgl_diamonds` data sets 4 and 5 are different from the original. 
 
 ```{r}
-wasserstein_4 <- datadist(kgl_diamonds[[4]], diamonds)
-wasserstein_5 <- datadist(kgl_diamonds[[5]], diamonds)
+wasserstein_4 <- numdist(kgl_diamonds[[4]], diamonds)
+wasserstein_5 <- numdist(kgl_diamonds[[5]], diamonds)
 ```
 
 Are these maybe submissions that used the script to update the data?
@@ -156,7 +156,6 @@ dfB <- data.frame(model.matrix(~cut-1, data = diamonds))
 dfA$name <- "A"
 dfB$name <- "A"
 
-datadist(dfA, dfB)
 
 
 ```
